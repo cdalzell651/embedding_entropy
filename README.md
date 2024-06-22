@@ -60,6 +60,7 @@ The steps involved in this investigation/application:
 - Fetch datasets for Machine Learning Papers (from [here](https://huggingface.co/datasets/CShorten/ML-ArXiv-Papers)) and for common words (The "Brown" corpus from [here](https://www.nltk.org/nltk_data/)) and ingest both into our Weaviate server.
 - Compute covariance and mean of a sample of (10,000) vectors in each dataset, from which we estimate a Multivariate Normal Distribution.
 - Use closed form equations of the two distributions to compute the total KL Divergence between the ML Paper dataset and the words dataset - this represents the number of bits of information gained by knowing a sample is distributed according to the ML Paper dataset (or how much superfluous information is in this dataset, from the perspective of the words dataset).
+    - Ultimately, this came out to 887 bits. See note on resolution for why we can't assume that's negligible, even if we use 768x32 bit = 24576 bit vectors
 - Use Principal Component Analysis to decompose the distribution of ML Paper vectors into approximately independent basis vectors.
 - Use closed form equations to compute the Marginal KL Divergence of each basis vector on its own between the ML Paper dataset and the words dataset.
 - After selecting two basis vectors:
